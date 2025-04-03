@@ -26,7 +26,11 @@ project('postgresql',
   ]
 )
 
-
+##############################################################
+# Include subproject RLibv2
+##############################################################
+rlibv2_proj = subproject('rlibv2')
+rlibv2_dep = rlibv2_proj.get_variable('rlibv2_dep')
 
 ###############################################################
 # Basic prep
@@ -3260,7 +3264,7 @@ backend_code = declare_dependency(
   link_args: ldflags_be,
   link_with: [],
   sources: generated_headers + generated_backend_headers,
-  dependencies: os_deps + backend_both_deps + backend_deps,
+  dependencies: os_deps + backend_both_deps + backend_deps + [rlibv2_dep],
 )
 
 # install these files only during test, not main install
